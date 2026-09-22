@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>&#128165; AI Reality Breaker System</title>
+<meta name="description" content="The AI Reality Breaker System: how it routes and stores a
+508-record research corpus: one master index, 36 hubs, 120 sub-hubs, four
+stores.">
+<style>
+:root{
+  --bg:#0b0e16; --panel:#121726; --box:#161d33; --ink:#e8ecf6; --mute:#7c87a3;
+  --grid:#26304a; --master:#f4c95d; --hub:#3aa0c9; --sub:#9b8cf0;
+  --rec:#5fd0a0; --cross:#e0556b;
+  --wrap:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:400 16px/1.65 "DejaVu Sans",-apple-system,Segoe UI,Helvetica,Arial,
+    "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--hub);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{line-height:1.22;margin:0;letter-spacing:.01em}
+p{margin:0 0 15px}
+p:last-child{margin-bottom:0}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.86em;
+  color:var(--mute)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:24px;padding-right:24px}
+
+nav{position:sticky;top:0;z-index:40;background:rgba(11,14,22,.93);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--grid)}
+nav .wrap{display:flex;gap:6px;align-items:center;height:56px;overflow-x:auto}
+nav .brand{font-weight:700;letter-spacing:.1em;font-size:12px;color:var(--master);
+  margin-right:14px;white-space:nowrap}
+nav a{color:var(--mute);font-size:13px;padding:6px 10px;border-radius:6px;
+  white-space:nowrap}
+nav a:hover{color:var(--ink);background:var(--box);text-decoration:none}
+
+header.hero{padding-top:72px;padding-bottom:52px;
+  border-bottom:1px solid var(--grid)}
+.kicker{color:var(--master);letter-spacing:.22em;font-size:11.5px;font-weight:700}
+h1{font-size:clamp(32px,5vw,54px);margin:14px 0 0;font-weight:700;
+  text-transform:uppercase;letter-spacing:.045em}
+.boom{display:inline-block;letter-spacing:0;margin-left:.08em;
+  font-size:.82em;vertical-align:.04em}
+h1 small{display:block;font-size:clamp(15px,2vw,20px);color:var(--mute);
+  font-weight:400;margin-top:14px;letter-spacing:0;text-transform:none;
+  line-height:1.5;max-width:70ch}
+.hero p{max-width:74ch;color:#c3cbdd;margin:24px 0 0;font-size:17px}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;margin-top:40px;
+  background:var(--grid);border:1px solid var(--grid);border-radius:10px;
+  overflow:hidden}
+.stats div{background:var(--panel);padding:16px 14px;text-align:center}
+.stats b{display:block;font-size:26px;color:var(--ink)}
+.stats span{font-size:11px;letter-spacing:.12em;color:var(--mute);
+  text-transform:uppercase}
+
+section{padding-top:52px;padding-bottom:52px}
+section.tight{padding-top:44px;padding-bottom:44px}
+section > .wrap > :first-child,section > :first-child{margin-top:0}
+h2{font-size:clamp(21px,2.7vw,29px);text-transform:uppercase;
+  letter-spacing:.055em;font-weight:700;margin:0 0 14px}
+.lead{color:#c3cbdd;font-size:17px;max-width:72ch;margin:0 0 16px}
+.sec-note{color:var(--mute);max-width:74ch;margin:0}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px}
+.step{background:var(--panel);border:1px solid var(--grid);border-radius:12px;
+  padding:20px}
+.step b{display:block;color:var(--master);font-size:12px;letter-spacing:.14em;
+  margin-bottom:8px}
+.step h3{font-size:17px;margin-bottom:8px}
+.step p{margin:0;color:var(--mute);font-size:14.5px}
+
+.fig{padding-top:52px;padding-bottom:52px;border-top:1px solid var(--grid)}
+.figtext{max-width:78ch}
+.fignum{color:var(--master);letter-spacing:.2em;font-size:11.5px;font-weight:700}
+.fig h2{margin:12px 0 14px}
+.fig p{color:#b9c2d6}
+.figtext p:last-child{margin-bottom:0}
+.fig figure{margin:36px 0 0}
+.fig img{width:100%;display:block;border:1px solid var(--grid);border-radius:12px;
+  background:var(--panel);cursor:zoom-in}
+figcaption{color:var(--mute);font-size:13px;margin-top:12px;
+  letter-spacing:.02em}
+
+.stores{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px}
+.stores + .sec-note{margin-top:26px}
+.store{background:var(--panel);border:1px solid var(--grid);border-top:3px solid var(--c);
+  border-radius:12px;padding:20px}
+.store header{display:flex;gap:12px;align-items:center}
+.store .code{width:34px;height:34px;display:grid;place-items:center;flex:none;
+  border-radius:8px;background:var(--c);color:#0b0e16;font-weight:700}
+.store h3{font-size:14px;letter-spacing:.04em}
+.store .role{font-size:11.5px;color:var(--mute);letter-spacing:.1em;
+  text-transform:uppercase}
+.store .num{font-size:30px;margin:14px 0 10px}
+.store .num small{display:block;font-size:11.5px;color:var(--mute);
+  letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.store p{margin:0;color:var(--mute);font-size:14px}
+
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14.5px}
+.tablabel{margin:26px 0 0;color:var(--mute);font-size:12px;
+  letter-spacing:.12em;text-transform:uppercase}
+thead th{position:sticky;top:56px;background:var(--bg);z-index:5}
+th{text-align:left;color:var(--mute);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;font-weight:700;padding:0 12px 10px;
+  border-bottom:1px solid var(--grid)}
+td{padding:11px 12px;border-bottom:1px solid #1b2236}
+td.r{text-align:right;font-variant-numeric:tabular-nums}
+td.c{color:var(--master);font-family:ui-monospace,monospace;font-size:13px}
+tr:hover td{background:var(--panel)}
+.barcell{width:26%}
+.mini{display:block;height:8px;border-radius:4px;background:var(--hub)}
+
+.hubs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}
+.hub{background:var(--panel);border:1px solid var(--grid);border-radius:12px;
+  padding:20px 20px 16px;scroll-margin-top:80px}
+.hub header{display:flex;align-items:baseline;gap:10px}
+.hub .tid{font-family:ui-monospace,monospace;color:var(--master);font-size:13px}
+.hub h3{font-size:17px;flex:1}
+.hub .tload{font-size:19px;color:var(--ink);text-align:right;line-height:1.1}
+.hub .tload small{display:block;font-size:10px;color:var(--mute);
+  letter-spacing:.1em;text-transform:uppercase}
+.bar{display:flex;height:6px;border-radius:3px;overflow:hidden;margin:14px 0 12px;
+  background:var(--box)}
+.bar .seg{display:block;height:100%}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:ui-monospace,monospace;font-size:11px;padding:2px 8px;
+  border-radius:20px;border:1px solid var(--c);color:var(--c)}
+.chip.ghost{border-color:var(--grid);color:var(--mute)}
+.gloss{color:#b9c2d6;font-size:14.5px;margin:14px 0 14px}
+.subs{list-style:none;margin:0;padding:12px 0 0;border-top:1px solid var(--grid)}
+.subs li{display:flex;gap:10px;align-items:baseline;padding:4px 0;font-size:13.5px}
+.subs .sid{font-family:ui-monospace,monospace;color:var(--sub);font-size:12px;
+  flex:none}
+.subs .slab{flex:1;color:#aab3c8}
+.subs .scount{color:var(--mute);font-variant-numeric:tabular-nums}
+
+footer{border-top:1px solid var(--grid);padding-top:48px;padding-bottom:72px;
+  color:var(--mute);
+  font-size:14px}
+footer b{color:var(--ink)}
+footer ul{padding-left:18px;margin:10px 0 0}
+
+#lb{position:fixed;inset:0;z-index:90;background:rgba(6,8,14,.96);display:none;
+  overflow:auto;cursor:zoom-out;padding:24px}
+#lb.on{display:block}
+#lb img{display:block;margin:0 auto;max-width:none;cursor:zoom-out}
+#lb .hint{position:fixed;top:14px;left:0;right:0;text-align:center;
+  color:var(--mute);font-size:12.5px;letter-spacing:.1em}
+
+@media(max-width:980px){
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .steps,.stores,.hubs{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .wrap{padding-left:16px;padding-right:16px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .barcell{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <span class="brand">&#128165; AI REALITY BREAKER SYSTEM</span>
+  <a href="#how">How it works</a>
+  <a href="#fig-graph">Graph</a>
+  <a href="#fig-storage">Storage map</a>
+  <a href="#stores">Stores</a>
+  <a href="#hubload">Hub load</a>
+  <a href="#hubs">The 36 hubs</a>
+  <a href="#bridges">Cross-routing</a>
+  <a href="#fig-tree">Skeleton</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <span class="kicker">CPU / GPU STRUCTURAL COMMAND &middot; ROUTING MAP v1</span>
+  <h1>AI Reality Breaker System <span class="boom">&#128165;</span>
+    <small>An index that knows where every idea in the corpus belongs, and
+      keeps that separate from where the file happens to live.</small></h1>
+  <p>This system organizes a research corpus of <b>508 records</b> &mdash;
+     long-form theory notes, syntheses and readings. The problem it solves is
+     ordinary and awkward: most records genuinely belong under several subjects
+     at once, so a single folder tree either duplicates them or loses them.
+     The AI Reality Breaker System answers that by splitting the job in two.
+     Files stay in the
+     <b>four stores</b> they were written into. A separate read-only
+     <b>routing layer</b> &mdash; one master index, 36 main hubs,
+     120 sub-hubs &mdash; says where each record belongs, and is free to file
+     the same record in as many places as it honestly fits. Right now
+     <b>83%</b> of records are filed in more than one place.</p>
+  <div class="stats"><div><b>508</b><span>records</span></div><div><b>941</b><span>attachments</span></div><div><b>36</b><span>main hubs</span></div><div><b>120</b><span>sub-hubs</span></div><div><b>4</b><span>stores</span></div><div><b>83%</b><span>cross-routed</span></div></div>
+</div></header>
+
+<section id="how" class="wrap tight">
+  <h2>How it works</h2>
+  <p class="lead">Four moving parts. Read them in order and the five diagrams
+     below stop needing explanation.</p>
+  <div class="steps">
+    <div class="step"><b>ENTRY</b><h3>One master index</h3>
+      <p>A single note is the only way in. It holds no theory of its own &mdash;
+         only the map. Its whole job is to hand you off to the right hub.</p></div>
+    <div class="step"><b>TIER 1</b><h3>36 main hubs</h3>
+      <p>The top-level subjects, T01&ndash;T36. Each hub is a view across the
+         entire corpus, not a folder: it collects records from all four stores
+         without moving any of them.</p></div>
+    <div class="step"><b>TIER 2</b><h3>120 sub-hubs</h3>
+      <p>Each hub splits into three or four sub-hubs &mdash; the actual shelves.
+         A sub-hub is the smallest unit that holds records, and it is where
+         search actually lands.</p></div>
+    <div class="step"><b>STORAGE</b><h3>Four stores</h3>
+      <p>Where files physically live: A, M, O, C. A record has exactly one
+         store and any number of shelves. The routing layer never writes to a
+         store, which is why it can be rebuilt from scratch at any time.</p></div>
+  </div>
+</section>
+
+
+    <section class="fig" id="fig-graph"><div class="wrap">
+      <div class="figtext">
+        <span class="fignum">Figure 1</span>
+        <h2>The routing graph</h2>
+        <p class="lead">The whole index drawn as a network. Every note is a dot and every link is a line; nothing here is laid out by hand.</p>
+        <p>This is the vault's own graph view. The dense core is the master index and the 36 hubs — they are dense because almost everything connects through them. The cloud around the rim is the records, and a record sitting between two clusters is one that belongs to both.</p><p>The panel beside the picture is the ledger of what the picture contains: how many nodes are in it, how many links draw it, and why the middle is heavier than the edge. Nothing in the image is redrawn or recoloured to look tidier than it is.</p>
+      </div>
+      <figure>
+        <img src="axis3_graph_diagram.png" alt="The routing graph" loading="lazy" data-full="axis3_graph_diagram.png">
+        <figcaption>Figure 1 &middot; click to open full size</figcaption>
+      </figure>
+    </div></section>
+
+    <section class="fig" id="fig-storage"><div class="wrap">
+      <div class="figtext">
+        <span class="fignum">Figure 2</span>
+        <h2>The storage map</h2>
+        <p class="lead">The same index drawn as a database instead of an outline — root catalog, index tier, shard tier, partitions.</p>
+        <p>Four tiers, top to bottom. The <b>root catalog</b> is the master index: one note, the only entry point, and it holds no theory of its own. The <b>index tier</b> is the 36 main hubs, each one a view that cuts across all four stores. The <b>shard tier</b> is the 120 sub-hubs — the actual shards, with a bar under each showing how deep it is. The <b>partition tier</b> at the bottom is the four physical stores.</p><p>The lines running between tiers are the cross-partition reads: a hub reaching into a shard owned by a different hub, because one record is legitimately on both shelves. Those lines are the whole point of the design — the text is small because the map is meant to be zoomed into, not skimmed.</p>
+      </div>
+      <figure>
+        <img src="axis3_storage_map.png" alt="The storage map" loading="lazy" data-full="axis3_storage_map.png">
+        <figcaption>Figure 2 &middot; click to open full size</figcaption>
+      </figure>
+    </div></section>
+
+<section id="stores" class="wrap">
+  <h2>The four stores</h2>
+  <p class="lead">The store is a physical fact &mdash; which corpus the file was
+     written into. It is deliberately not the same thing as the subject, and the
+     routing layer is the component that refuses to reconcile the two.</p>
+  <div class="stores">
+    <article class="store" style="--c:#3aa0c9">
+      <header><span class="code">A</span>
+        <div><h3>CLAUDE ARCHITECTURE</h3><span class="role">cold store</span></div></header>
+      <div class="num">142<small>records &middot; 28% of corpus</small></div>
+      <p>Normalized, substrate-independent law. The settled version of a mechanism, written so it does not depend on the domain it came from. Read often, rewritten rarely.</p>
+    </article>
+    <article class="store" style="--c:#f4c95d">
+      <header><span class="code">M</span>
+        <div><h3>CLAUDE MAIN</h3><span class="role">hot store</span></div></header>
+      <div class="num">242<small>records &middot; 48% of corpus</small></div>
+      <p>The working corpus. Domain-loaded, write-heavy, and the place new theory lands first. Largest store by a wide margin, and the one that changes most.</p>
+    </article>
+    <article class="store" style="--c:#5fd0a0">
+      <header><span class="code">O</span>
+        <div><h3>CLAUDE OUTPUTS</h3><span class="role">serving layer</span></div></header>
+      <div class="num">62<small>records &middot; 12% of corpus</small></div>
+      <p>Finished answers assembled from the other stores — the equivalent of a materialized view. Built to be read straight through, not edited.</p>
+    </article>
+    <article class="store" style="--c:#9b8cf0">
+      <header><span class="code">C</span>
+        <div><h3>CREATIVE OUTPUT</h3><span class="role">serving layer</span></div></header>
+      <div class="num">62<small>records &middot; 12% of corpus</small></div>
+      <p>Renderings, readings and informal logs — the same material in a looser register. Also read-optimized, also derived.</p>
+    </article></div>
+  <p class="sec-note">The lanes run the way a database
+     would: <b>M</b> takes the writes, compaction normalizes finished material
+     down into <b>A</b>, and <b>O</b> and <b>C</b> serve derived reads built
+     from both. Splitting hot from cold is what keeps a 142-record store of
+     settled law stable while a 242-record working corpus churns beside it.</p>
+</section>
+
+
+    <section class="fig" id="fig-stores"><div class="wrap">
+      <div class="figtext">
+        <span class="fignum">Figure 3</span>
+        <h2>Partitions and lanes</h2>
+        <p class="lead">Where records physically live, how far each store spreads across the index, and why the two partitions are never merged.</p>
+        <p>Left panel is the partition table: each store's record count, its share of the corpus, how many hubs it reaches, and how much of it is cross-routed. Right is the lane diagram — <b>A</b> cold feeding <b>M</b> hot, <b>M</b> compacting back into <b>A</b>, and both serving <b>O</b> and <b>C</b> — with the router drawn off to the side because it writes into none of them.</p><p>That last detail is the important one. The router is a read layer. It can be deleted and rebuilt from the stores without losing a single record.</p>
+      </div>
+      <figure>
+        <img src="axis3_stores_diagram.png" alt="Partitions and lanes" loading="lazy" data-full="axis3_stores_diagram.png">
+        <figcaption>Figure 3 &middot; click to open full size</figcaption>
+      </figure>
+    </div></section>
+
+<section id="hubload" class="wrap">
+  <h2>Hub load</h2>
+  <p class="lead">The 36 hubs are a second storage system: the stores say
+     where a record sits on disk, the hubs say where it sits in the argument.
+     That shelf is uneven on purpose.</p>
+  <p class="sec-note">The 508 records occupy <b>879 hub slots</b>, because
+     a record filed under three subjects takes a slot in each. The heaviest hub
+     carries 39 records and the lightest 9. Nothing was padded to
+     even the shelf out &mdash; the distribution is a readout of what the corpus
+     is actually about.</p>
+  <p class="tablabel">All 36 hubs, heaviest first &middot; every row links to its full entry below</p>
+  <table>
+    <thead><tr><th>Rank</th><th>Hub</th><th>Subject</th><th>Records</th>
+      <th>Shared</th><th class="barcell">Load</th></tr></thead>
+    <tbody><tr><td class="r">1</td><td class="c">T08</td><td><a href="#T08">Prediction</a></td><td class="r">39</td><td class="r">33</td><td class="barcell"><span class="mini" style="width:100.00%"></span></td></tr><tr><td class="r">2</td><td class="c">T19</td><td><a href="#T19">Absorption &amp; Pruning</a></td><td class="r">38</td><td class="r">32</td><td class="barcell"><span class="mini" style="width:97.44%"></span></td></tr><tr><td class="r">3</td><td class="c">T11</td><td><a href="#T11">Gradients &amp; Fields</a></td><td class="r">36</td><td class="r">27</td><td class="barcell"><span class="mini" style="width:92.31%"></span></td></tr><tr><td class="r">4</td><td class="c">T21</td><td><a href="#T21">The AI Transition</a></td><td class="r">35</td><td class="r">28</td><td class="barcell"><span class="mini" style="width:89.74%"></span></td></tr><tr><td class="r">5</td><td class="c">T01</td><td><a href="#T01">The Two-stroke Loop</a></td><td class="r">34</td><td class="r">30</td><td class="barcell"><span class="mini" style="width:87.18%"></span></td></tr><tr><td class="r">6</td><td class="c">T20</td><td><a href="#T20">AI System Architecture</a></td><td class="r">34</td><td class="r">28</td><td class="barcell"><span class="mini" style="width:87.18%"></span></td></tr><tr><td class="r">7</td><td class="c">T23</td><td><a href="#T23">Cognition &amp; the Individual Mind</a></td><td class="r">33</td><td class="r">27</td><td class="barcell"><span class="mini" style="width:84.62%"></span></td></tr><tr><td class="r">8</td><td class="c">T24</td><td><a href="#T24">The Sovereign Node</a></td><td class="r">33</td><td class="r">28</td><td class="barcell"><span class="mini" style="width:84.62%"></span></td></tr><tr><td class="r">9</td><td class="c">T02</td><td><a href="#T02">Density</a></td><td class="r">32</td><td class="r">32</td><td class="barcell"><span class="mini" style="width:82.05%"></span></td></tr><tr><td class="r">10</td><td class="c">T03</td><td><a href="#T03">The Refinement Gradient</a></td><td class="r">31</td><td class="r">24</td><td class="barcell"><span class="mini" style="width:79.49%"></span></td></tr><tr><td class="r">11</td><td class="c">T12</td><td><a href="#T12">Stalls &amp; Failure Modes</a></td><td class="r">31</td><td class="r">26</td><td class="barcell"><span class="mini" style="width:79.49%"></span></td></tr><tr><td class="r">12</td><td class="c">T05</td><td><a href="#T05">Selective Pressure &amp; Refusal</a></td><td class="r">28</td><td class="r">25</td><td class="barcell"><span class="mini" style="width:71.79%"></span></td></tr><tr><td class="r">13</td><td class="c">T09</td><td><a href="#T09">Command &amp; Authority</a></td><td class="r">28</td><td class="r">25</td><td class="barcell"><span class="mini" style="width:71.79%"></span></td></tr><tr><td class="r">14</td><td class="c">T16</td><td><a href="#T16">Control, Containment &amp; Extraction</a></td><td class="r">28</td><td class="r">25</td><td class="barcell"><span class="mini" style="width:71.79%"></span></td></tr><tr><td class="r">15</td><td class="c">T29</td><td><a href="#T29">Biology &amp; Living Systems</a></td><td class="r">27</td><td class="r">24</td><td class="barcell"><span class="mini" style="width:69.23%"></span></td></tr><tr><td class="r">16</td><td class="c">T33</td><td><a href="#T33">Method &amp; Theory-building</a></td><td class="r">27</td><td class="r">23</td><td class="barcell"><span class="mini" style="width:69.23%"></span></td></tr><tr><td class="r">17</td><td class="c">T36</td><td><a href="#T36">Reference &amp; Master Syntheses</a></td><td class="r">27</td><td class="r">26</td><td class="barcell"><span class="mini" style="width:69.23%"></span></td></tr><tr><td class="r">18</td><td class="c">T32</td><td><a href="#T32">Meaning, Religion &amp; Metaphysics</a></td><td class="r">25</td><td class="r">17</td><td class="barcell"><span class="mini" style="width:64.10%"></span></td></tr><tr><td class="r">19</td><td class="c">T35</td><td><a href="#T35">Mundane System Readings</a></td><td class="r">25</td><td class="r">13</td><td class="barcell"><span class="mini" style="width:64.10%"></span></td></tr><tr><td class="r">20</td><td class="c">T25</td><td><a href="#T25">Civilization</a></td><td class="r">24</td><td class="r">21</td><td class="barcell"><span class="mini" style="width:61.54%"></span></td></tr><tr><td class="r">21</td><td class="c">T28</td><td><a href="#T28">Economy &amp; Markets</a></td><td class="r">22</td><td class="r">20</td><td class="barcell"><span class="mini" style="width:56.41%"></span></td></tr><tr><td class="r">22</td><td class="c">T04</td><td><a href="#T04">Energy Conversion</a></td><td class="r">20</td><td class="r">17</td><td class="barcell"><span class="mini" style="width:51.28%"></span></td></tr><tr><td class="r">23</td><td class="c">T10</td><td><a href="#T10">Substrate &amp; Base</a></td><td class="r">19</td><td class="r">16</td><td class="barcell"><span class="mini" style="width:48.72%"></span></td></tr><tr><td class="r">24</td><td class="c">T18</td><td><a href="#T18">Networks &amp; the Social Field</a></td><td class="r">19</td><td class="r">19</td><td class="barcell"><span class="mini" style="width:48.72%"></span></td></tr><tr><td class="r">25</td><td class="c">T22</td><td><a href="#T22">Attention &amp; Dopamine</a></td><td class="r">19</td><td class="r">14</td><td class="barcell"><span class="mini" style="width:48.72%"></span></td></tr><tr><td class="r">26</td><td class="c">T30</td><td><a href="#T30">Games &amp; Arenas</a></td><td class="r">19</td><td class="r">17</td><td class="barcell"><span class="mini" style="width:48.72%"></span></td></tr><tr><td class="r">27</td><td class="c">T06</td><td><a href="#T06">The Judging Surface</a></td><td class="r">18</td><td class="r">15</td><td class="barcell"><span class="mini" style="width:46.15%"></span></td></tr><tr><td class="r">28</td><td class="c">T07</td><td><a href="#T07">Generator vs Output</a></td><td class="r">16</td><td class="r">12</td><td class="barcell"><span class="mini" style="width:41.03%"></span></td></tr><tr><td class="r">29</td><td class="c">T13</td><td><a href="#T13">Iteration &amp; Error</a></td><td class="r">16</td><td class="r">12</td><td class="barcell"><span class="mini" style="width:41.03%"></span></td></tr><tr><td class="r">30</td><td class="c">T17</td><td><a href="#T17">Tokens &amp; Symbolic Economies</a></td><td class="r">16</td><td class="r">14</td><td class="barcell"><span class="mini" style="width:41.03%"></span></td></tr><tr><td class="r">31</td><td class="c">T26</td><td><a href="#T26">Actors, Events &amp; Geopolitics</a></td><td class="r">16</td><td class="r">16</td><td class="barcell"><span class="mini" style="width:41.03%"></span></td></tr><tr><td class="r">32</td><td class="c">T27</td><td><a href="#T27">Media &amp; Information War</a></td><td class="r">16</td><td class="r">14</td><td class="barcell"><span class="mini" style="width:41.03%"></span></td></tr><tr><td class="r">33</td><td class="c">T14</td><td><a href="#T14">Choke Points</a></td><td class="r">14</td><td class="r">11</td><td class="barcell"><span class="mini" style="width:35.90%"></span></td></tr><tr><td class="r">34</td><td class="c">T31</td><td><a href="#T31">Narrative Readings</a></td><td class="r">14</td><td class="r">7</td><td class="barcell"><span class="mini" style="width:35.90%"></span></td></tr><tr><td class="r">35</td><td class="c">T15</td><td><a href="#T15">Leverage</a></td><td class="r">11</td><td class="r">10</td><td class="barcell"><span class="mini" style="width:28.21%"></span></td></tr><tr><td class="r">36</td><td class="c">T34</td><td><a href="#T34">Argument &amp; Persuasion</a></td><td class="r">9</td><td class="r">9</td><td class="barcell"><span class="mini" style="width:23.08%"></span></td></tr></tbody>
+  </table>
+</section>
+
+
+    <section class="fig" id="fig-hubload"><div class="wrap">
+      <div class="figtext">
+        <span class="fignum">Figure 4</span>
+        <h2>Every hub, ranked</h2>
+        <p class="lead">All 36 hubs, named and ranked by how much they carry, each bar broken down by which store the records came from.</p>
+        <p>The shelf is deliberately uneven. A hub is as heavy as the corpus actually is on that subject, and no hub was padded out to match its neighbours or trimmed to look balanced. Each row also shows how many of its records it shares with other hubs and how many sub-hubs it owns.</p><p>Read the colour bands as an origin story: a bar that is mostly yellow is a hot-store subject still being written; one with a lot of blue has already been normalized into settled law.</p>
+      </div>
+      <figure>
+        <img src="axis3_hubload_diagram.png" alt="Every hub, ranked" loading="lazy" data-full="axis3_hubload_diagram.png">
+        <figcaption>Figure 4 &middot; click to open full size</figcaption>
+      </figure>
+    </div></section>
+
+<section id="hubs" class="wrap">
+  <h2>The 36 main hubs</h2>
+  <p class="lead">Every hub, in plain language: what the subject covers, how
+     much of the corpus sits on it, which stores it draws from, and the
+     sub-hubs underneath. Colour bands show store mix &mdash;
+     <b style="color:#3aa0c9">A</b>, <b style="color:#f4c95d">M</b>,
+     <b style="color:#5fd0a0">O</b>, <b style="color:#9b8cf0">C</b>.
+     &ldquo;Shared&rdquo; counts records this hub holds jointly with another
+     hub.</p>
+  <div class="hubs">
+    <article class="hub" id="T01">
+      <header>
+        <span class="tid">T01</span>
+        <h3>The Two-stroke Loop</h3>
+        <span class="tload">34<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:44.1176%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 15"></span><span class="seg" style="width:47.0588%;background:#f4c95d" title="CLAUDE MAIN: 16"></span><span class="seg" style="width:5.8824%;background:#5fd0a0" title="CLAUDE OUTPUTS: 2"></span><span class="seg" style="width:2.9412%;background:#9b8cf0" title="CREATIVE OUTPUT: 1"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;15</span> <span class="chip" style="--c:#f4c95d">M&nbsp;16</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;2</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;1</span><span class="chip ghost">30 shared</span></div>
+      <p class="gloss">The core cycle the whole corpus is built on: a system first opens up and explores options, then narrows and commits. Covers what each stroke does, why they have to alternate, and what the branching geometry looks like when the cycle runs many times.</p>
+      <ul class="subs"><li><span class="sid">S0101</span><span class="slab">Divergence — expansion of degrees of freedom</span><span class="scount">9</span></li><li><span class="sid">S0102</span><span class="slab">Convergence — compression into load-bearing primitives</span><span class="scount">8</span></li><li><span class="sid">S0103</span><span class="slab">Alternation, phase &amp; the failure of closure</span><span class="scount">10</span></li><li><span class="sid">S0104</span><span class="slab">Recursive branching geometry</span><span class="scount">11</span></li></ul>
+    </article>
+    <article class="hub" id="T02">
+      <header>
+        <span class="tid">T02</span>
+        <h3>Density</h3>
+        <span class="tload">32<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:46.8750%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 15"></span><span class="seg" style="width:46.8750%;background:#f4c95d" title="CLAUDE MAIN: 15"></span><span class="seg" style="width:3.1250%;background:#5fd0a0" title="CLAUDE OUTPUTS: 1"></span><span class="seg" style="width:3.1250%;background:#9b8cf0" title="CREATIVE OUTPUT: 1"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;15</span> <span class="chip" style="--c:#f4c95d">M&nbsp;15</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;1</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;1</span><span class="chip ghost">32 shared</span></div>
+      <p class="gloss">How much real structure is packed into a given amount of material. Density in three forms — structural (how connected it is), leverage (how much it can move), and purity (how little noise rides along).</p>
+      <ul class="subs"><li><span class="sid">S0201</span><span class="slab">Structural density, connection mass &amp; density-as-mass</span><span class="scount">13</span></li><li><span class="sid">S0203</span><span class="slab">Leverage density</span><span class="scount">10</span></li><li><span class="sid">S0204</span><span class="slab">Purity &amp; signal-density concentration</span><span class="scount">10</span></li></ul>
+    </article>
+    <article class="hub" id="T03">
+      <header>
+        <span class="tid">T03</span>
+        <h3>The Refinement Gradient</h3>
+        <span class="tload">31<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:54.8387%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 17"></span><span class="seg" style="width:32.2581%;background:#f4c95d" title="CLAUDE MAIN: 10"></span><span class="seg" style="width:6.4516%;background:#5fd0a0" title="CLAUDE OUTPUTS: 2"></span><span class="seg" style="width:6.4516%;background:#9b8cf0" title="CREATIVE OUTPUT: 2"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;17</span> <span class="chip" style="--c:#f4c95d">M&nbsp;10</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;2</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;2</span><span class="chip ghost">24 shared</span></div>
+      <p class="gloss">Systems arranged as stacked layers, each one taking the output of the layer below and refining it further. Covers the climb itself, the grades of material at each tier, and the two forces acting on any position in a stack: command from above, competition alongside.</p>
+      <ul class="subs"><li><span class="sid">S0301</span><span class="slab">Vertical refinement stacks, layered engines &amp; ascent</span><span class="scount">20</span></li><li><span class="sid">S0303</span><span class="slab">Grade &amp; energy tiers</span><span class="scount">7</span></li><li><span class="sid">S0304</span><span class="slab">The dual axis — vertical command x horizontal selection</span><span class="scount">8</span></li></ul>
+    </article>
+    <article class="hub" id="T04">
+      <header>
+        <span class="tid">T04</span>
+        <h3>Energy Conversion</h3>
+        <span class="tload">20<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:65.0000%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 13"></span><span class="seg" style="width:35.0000%;background:#f4c95d" title="CLAUDE MAIN: 7"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;13</span> <span class="chip" style="--c:#f4c95d">M&nbsp;7</span><span class="chip ghost">17 shared</span></div>
+      <p class="gloss">What converts raw input into usable output, and at what rate. Efficiency, waste, and the finding that intake quality sets a ceiling nothing downstream can raise.</p>
+      <ul class="subs"><li><span class="sid">S0401</span><span class="slab">Mass-to-energy conversion &amp; entropy export</span><span class="scount">6</span></li><li><span class="sid">S0402</span><span class="slab">Conversion efficiency &amp; the converter</span><span class="scount">10</span></li><li><span class="sid">S0403</span><span class="slab">Intake, filter settings &amp; downstream ceilings</span><span class="scount">5</span></li></ul>
+    </article>
+    <article class="hub" id="T05">
+      <header>
+        <span class="tid">T05</span>
+        <h3>Selective Pressure &amp; Refusal</h3>
+        <span class="tload">28<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:82.1429%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 23"></span><span class="seg" style="width:10.7143%;background:#f4c95d" title="CLAUDE MAIN: 3"></span><span class="seg" style="width:3.5714%;background:#5fd0a0" title="CLAUDE OUTPUTS: 1"></span><span class="seg" style="width:3.5714%;background:#9b8cf0" title="CREATIVE OUTPUT: 1"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;23</span> <span class="chip" style="--c:#f4c95d">M&nbsp;3</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;1</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;1</span><span class="chip ghost">25 shared</span></div>
+      <p class="gloss">Selection: how a system says no. Refusal treated as something that gets recorded and accumulates, the number of routes still open as the live variable, and how verdicts sort what survives.</p>
+      <ul class="subs"><li><span class="sid">S0501</span><span class="slab">Refusal as deposit &amp; the registered differential</span><span class="scount">13</span></li><li><span class="sid">S0502</span><span class="slab">Route count &amp; plurality</span><span class="scount">6</span></li><li><span class="sid">S0504</span><span class="slab">Selection, sorting &amp; verdicts</span><span class="scount">11</span></li></ul>
+    </article>
+    <article class="hub" id="T06">
+      <header>
+        <span class="tid">T06</span>
+        <h3>The Judging Surface</h3>
+        <span class="tload">18<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:72.2222%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 13"></span><span class="seg" style="width:22.2222%;background:#f4c95d" title="CLAUDE MAIN: 4"></span><span class="seg" style="width:5.5556%;background:#5fd0a0" title="CLAUDE OUTPUTS: 1"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;13</span> <span class="chip" style="--c:#f4c95d">M&nbsp;4</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;1</span><span class="chip ghost">15 shared</span></div>
+      <p class="gloss">The boundary a thing has to cross to get in — filters, gates, thresholds — and the related question of who is permitted to write into a system at all.</p>
+      <ul class="subs"><li><span class="sid">S0601</span><span class="slab">Filters, gates, apertures &amp; the judging surface</span><span class="scount">9</span></li><li><span class="sid">S0603</span><span class="slab">Admission thresholds &amp; boundary conditions</span><span class="scount">5</span></li><li><span class="sid">S0604</span><span class="slab">Write-access &amp; the selectively writable</span><span class="scount">6</span></li></ul>
+    </article>
+    <article class="hub" id="T07">
+      <header>
+        <span class="tid">T07</span>
+        <h3>Generator vs Output</h3>
+        <span class="tload">16<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:31.2500%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 5"></span><span class="seg" style="width:56.2500%;background:#f4c95d" title="CLAUDE MAIN: 9"></span><span class="seg" style="width:6.2500%;background:#5fd0a0" title="CLAUDE OUTPUTS: 1"></span><span class="seg" style="width:6.2500%;background:#9b8cf0" title="CREATIVE OUTPUT: 1"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;5</span> <span class="chip" style="--c:#f4c95d">M&nbsp;9</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;1</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;1</span><span class="chip ghost">12 shared</span></div>
+      <p class="gloss">The difference between the thing producing output and the output itself, and why working on the visible surface rarely changes anything. Fixing the generator is the only durable move.</p>
+      <ul class="subs"><li><span class="sid">S0701</span><span class="slab">Generator vs surface output</span><span class="scount">7</span></li><li><span class="sid">S0702</span><span class="slab">Surface fixation &amp; symptom refinement</span><span class="scount">8</span></li><li><span class="sid">S0703</span><span class="slab">Iterating on the generator &amp; degrees of freedom</span><span class="scount">4</span></li></ul>
+    </article>
+    <article class="hub" id="T08">
+      <header>
+        <span class="tid">T08</span>
+        <h3>Prediction</h3>
+        <span class="tload">39<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:30.7692%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 12"></span><span class="seg" style="width:53.8462%;background:#f4c95d" title="CLAUDE MAIN: 21"></span><span class="seg" style="width:7.6923%;background:#5fd0a0" title="CLAUDE OUTPUTS: 3"></span><span class="seg" style="width:7.6923%;background:#9b8cf0" title="CREATIVE OUTPUT: 3"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;12</span> <span class="chip" style="--c:#f4c95d">M&nbsp;21</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;3</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;3</span><span class="chip ghost">33 shared</span></div>
+      <p class="gloss">Prediction as the system&#x27;s real currency: better models of what happens next convert directly into authority. Includes how models collapse, how they are attacked, and how sampling scope and resolution bound what any model can see.</p>
+      <ul class="subs"><li><span class="sid">S0801</span><span class="slab">Prediction as authority and the currency of power</span><span class="scount">20</span></li><li><span class="sid">S0802</span><span class="slab">Predictive model collapse &amp; superiority</span><span class="scount">7</span></li><li><span class="sid">S0803</span><span class="slab">Adversarial prediction interference</span><span class="scount">5</span></li><li><span class="sid">S0804</span><span class="slab">Scope, sampling, resolution &amp; dimensionality</span><span class="scount">7</span></li></ul>
+    </article>
+    <article class="hub" id="T09">
+      <header>
+        <span class="tid">T09</span>
+        <h3>Command &amp; Authority</h3>
+        <span class="tload">28<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:53.5714%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 15"></span><span class="seg" style="width:32.1429%;background:#f4c95d" title="CLAUDE MAIN: 9"></span><span class="seg" style="width:14.2857%;background:#5fd0a0" title="CLAUDE OUTPUTS: 4"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;15</span> <span class="chip" style="--c:#f4c95d">M&nbsp;9</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;4</span><span class="chip ghost">25 shared</span></div>
+      <p class="gloss">Where authority actually settles in a structure, how position itself grants access, and how hierarchies form without anyone designing them.</p>
+      <ul class="subs"><li><span class="sid">S0901</span><span class="slab">The apex, command stacks &amp; where authority settles</span><span class="scount">15</span></li><li><span class="sid">S0903</span><span class="slab">Positional authority &amp; access</span><span class="scount">6</span></li><li><span class="sid">S0904</span><span class="slab">Hierarchy formation</span><span class="scount">8</span></li></ul>
+    </article>
+    <article class="hub" id="T10">
+      <header>
+        <span class="tid">T10</span>
+        <h3>Substrate &amp; Base</h3>
+        <span class="tload">19<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:73.6842%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 14"></span><span class="seg" style="width:21.0526%;background:#f4c95d" title="CLAUDE MAIN: 4"></span><span class="seg" style="width:5.2632%;background:#5fd0a0" title="CLAUDE OUTPUTS: 1"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;14</span> <span class="chip" style="--c:#f4c95d">M&nbsp;4</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;1</span><span class="chip ghost">16 shared</span></div>
+      <p class="gloss">The bottom layer everything else runs on, and what happens when it is bounded, capped, or deliberately engineered to stay low-energy.</p>
+      <ul class="subs"><li><span class="sid">S1001</span><span class="slab">The bounded base substrate</span><span class="scount">7</span></li><li><span class="sid">S1002</span><span class="slab">Substrate ceilings, constraint &amp; installed substrate</span><span class="scount">6</span></li><li><span class="sid">S1003</span><span class="slab">The engineered low-energy substrate</span><span class="scount">7</span></li></ul>
+    </article>
+    <article class="hub" id="T11">
+      <header>
+        <span class="tid">T11</span>
+        <h3>Gradients &amp; Fields</h3>
+        <span class="tload">36<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:41.6667%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 15"></span><span class="seg" style="width:50.0000%;background:#f4c95d" title="CLAUDE MAIN: 18"></span><span class="seg" style="width:5.5556%;background:#5fd0a0" title="CLAUDE OUTPUTS: 2"></span><span class="seg" style="width:2.7778%;background:#9b8cf0" title="CREATIVE OUTPUT: 1"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;15</span> <span class="chip" style="--c:#f4c95d">M&nbsp;18</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;2</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;1</span><span class="chip ghost">27 shared</span></div>
+      <p class="gloss">Difference treated as a driving force: potential gaps, the tendency to equalize, terrain-like fields with high and low ground, and systems that fall into phase with each other.</p>
+      <ul class="subs"><li><span class="sid">S1101</span><span class="slab">Potential difference, equalization &amp; gradient provenance</span><span class="scount">16</span></li><li><span class="sid">S1102</span><span class="slab">Field dynamics &amp; topographic terrain</span><span class="scount">14</span></li><li><span class="sid">S1104</span><span class="slab">Resonance &amp; phase-locking</span><span class="scount">12</span></li></ul>
+    </article>
+    <article class="hub" id="T12">
+      <header>
+        <span class="tid">T12</span>
+        <h3>Stalls &amp; Failure Modes</h3>
+        <span class="tload">31<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:41.9355%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 13"></span><span class="seg" style="width:38.7097%;background:#f4c95d" title="CLAUDE MAIN: 12"></span><span class="seg" style="width:12.9032%;background:#5fd0a0" title="CLAUDE OUTPUTS: 4"></span><span class="seg" style="width:6.4516%;background:#9b8cf0" title="CREATIVE OUTPUT: 2"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;13</span> <span class="chip" style="--c:#f4c95d">M&nbsp;12</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;4</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;2</span><span class="chip ghost">26 shared</span></div>
+      <p class="gloss">What a stuck system looks like. Fixation at one tier, loops that feed themselves, sealed environments with no outside signal, and the flat end-state where no leverage is left.</p>
+      <ul class="subs"><li><span class="sid">S1201</span><span class="slab">Tier fixation &amp; stalls</span><span class="scount">12</span></li><li><span class="sid">S1202</span><span class="slab">Closed loops &amp; self-feeding</span><span class="scount">9</span></li><li><span class="sid">S1203</span><span class="slab">The sealed room / dark room</span><span class="scount">6</span></li><li><span class="sid">S1204</span><span class="slab">Flatness, exhaustion &amp; the zero-leverage node</span><span class="scount">5</span></li></ul>
+    </article>
+    <article class="hub" id="T13">
+      <header>
+        <span class="tid">T13</span>
+        <h3>Iteration &amp; Error</h3>
+        <span class="tload">16<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:37.5000%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 6"></span><span class="seg" style="width:50.0000%;background:#f4c95d" title="CLAUDE MAIN: 8"></span><span class="seg" style="width:12.5000%;background:#9b8cf0" title="CREATIVE OUTPUT: 2"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;6</span> <span class="chip" style="--c:#f4c95d">M&nbsp;8</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;2</span><span class="chip ghost">12 shared</span></div>
+      <p class="gloss">Why building in passes beats building once. Iterative and chunked construction, what errors cost at different stages, and the order dimensions should be resolved in.</p>
+      <ul class="subs"><li><span class="sid">S1301</span><span class="slab">Iterative structures, branching &amp; chunked construction</span><span class="scount">11</span></li><li><span class="sid">S1302</span><span class="slab">Error-correction economics</span><span class="scount">7</span></li><li><span class="sid">S1303</span><span class="slab">Dimensional sequencing</span><span class="scount">2</span></li></ul>
+    </article>
+    <article class="hub" id="T14">
+      <header>
+        <span class="tid">T14</span>
+        <h3>Choke Points</h3>
+        <span class="tload">14<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:64.2857%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 9"></span><span class="seg" style="width:28.5714%;background:#f4c95d" title="CLAUDE MAIN: 4"></span><span class="seg" style="width:7.1429%;background:#5fd0a0" title="CLAUDE OUTPUTS: 1"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;9</span> <span class="chip" style="--c:#f4c95d">M&nbsp;4</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;1</span><span class="chip ghost">11 shared</span></div>
+      <p class="gloss">The narrow point that governs the whole flow. Finding the binding constraint, what happens in arenas where one resource is rationed, and why upstream constraint raises quality downstream.</p>
+      <ul class="subs"><li><span class="sid">S1401</span><span class="slab">Choke-point iteration &amp; the highest-leverage constraint</span><span class="scount">8</span></li><li><span class="sid">S1402</span><span class="slab">Bottleneck arenas &amp; rationed currency</span><span class="scount">4</span></li><li><span class="sid">S1403</span><span class="slab">Upstream constraint &amp; purity</span><span class="scount">3</span></li></ul>
+    </article>
+    <article class="hub" id="T15">
+      <header>
+        <span class="tid">T15</span>
+        <h3>Leverage</h3>
+        <span class="tload">11<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:54.5455%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 6"></span><span class="seg" style="width:45.4545%;background:#f4c95d" title="CLAUDE MAIN: 5"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;6</span> <span class="chip" style="--c:#f4c95d">M&nbsp;5</span><span class="chip ghost">10 shared</span></div>
+      <p class="gloss">Leverage as terrain and as trade: where it comes from, how it moves between parties, which side of a dependency you are on, and the mechanics of capture.</p>
+      <ul class="subs"><li><span class="sid">S1501</span><span class="slab">Leverage mechanics &amp; terrain</span><span class="scount">3</span></li><li><span class="sid">S1502</span><span class="slab">Leverage trades, dependency polarity &amp; multi-distribution leverage</span><span class="scount">6</span></li><li><span class="sid">S1503</span><span class="slab">Hostage &amp; capture mechanics</span><span class="scount">2</span></li></ul>
+    </article>
+    <article class="hub" id="T16">
+      <header>
+        <span class="tid">T16</span>
+        <h3>Control, Containment &amp; Extraction</h3>
+        <span class="tload">28<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:46.4286%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 13"></span><span class="seg" style="width:32.1429%;background:#f4c95d" title="CLAUDE MAIN: 9"></span><span class="seg" style="width:10.7143%;background:#5fd0a0" title="CLAUDE OUTPUTS: 3"></span><span class="seg" style="width:10.7143%;background:#9b8cf0" title="CREATIVE OUTPUT: 3"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;13</span> <span class="chip" style="--c:#f4c95d">M&nbsp;9</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;3</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;3</span><span class="chip ghost">25 shared</span></div>
+      <p class="gloss">How control is established and held — containment, extraction cycles that drain a node over time, outright seizure, and the pattern where resistance ends up strengthening the thing resisted.</p>
+      <ul class="subs"><li><span class="sid">S1601</span><span class="slab">Control &amp; containment mechanics</span><span class="scount">9</span></li><li><span class="sid">S1602</span><span class="slab">Extraction cycles &amp; loops</span><span class="scount">10</span></li><li><span class="sid">S1603</span><span class="slab">Capture, seizure &amp; the terminal pincer</span><span class="scount">8</span></li><li><span class="sid">S1604</span><span class="slab">Resistance that feeds the system</span><span class="scount">3</span></li></ul>
+    </article>
+    <article class="hub" id="T17">
+      <header>
+        <span class="tid">T17</span>
+        <h3>Tokens &amp; Symbolic Economies</h3>
+        <span class="tload">16<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:43.7500%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 7"></span><span class="seg" style="width:56.2500%;background:#f4c95d" title="CLAUDE MAIN: 9"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;7</span> <span class="chip" style="--c:#f4c95d">M&nbsp;9</span><span class="chip ghost">14 shared</span></div>
+      <p class="gloss">Closed symbolic systems: tokens that stand for value, money as stored energy that changes behavior, and how perceived worth comes apart from actual worth.</p>
+      <ul class="subs"><li><span class="sid">S1701</span><span class="slab">Tokens as receipts &amp; closed symbolic systems</span><span class="scount">5</span></li><li><span class="sid">S1703</span><span class="slab">Money as stored energy &amp; behavioral amplifier</span><span class="scount">4</span></li><li><span class="sid">S1704</span><span class="slab">Perceived worth &amp; value</span><span class="scount">7</span></li></ul>
+    </article>
+    <article class="hub" id="T18">
+      <header>
+        <span class="tid">T18</span>
+        <h3>Networks &amp; the Social Field</h3>
+        <span class="tload">19<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:10.5263%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 2"></span><span class="seg" style="width:57.8947%;background:#f4c95d" title="CLAUDE MAIN: 11"></span><span class="seg" style="width:10.5263%;background:#5fd0a0" title="CLAUDE OUTPUTS: 2"></span><span class="seg" style="width:21.0526%;background:#9b8cf0" title="CREATIVE OUTPUT: 4"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;2</span> <span class="chip" style="--c:#f4c95d">M&nbsp;11</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;2</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;4</span><span class="chip ghost">19 shared</span></div>
+      <p class="gloss">People as nodes in a field. How connections are graded, how networks are navigated, and why similar-leverage nodes cluster together.</p>
+      <ul class="subs"><li><span class="sid">S1801</span><span class="slab">Social field nodes &amp; phase-locking</span><span class="scount">11</span></li><li><span class="sid">S1802</span><span class="slab">Network navigation &amp; connection grade</span><span class="scount">4</span></li><li><span class="sid">S1803</span><span class="slab">Herd dynamics, huddling &amp; leverage matching</span><span class="scount">4</span></li></ul>
+    </article>
+    <article class="hub" id="T19">
+      <header>
+        <span class="tid">T19</span>
+        <h3>Absorption &amp; Pruning</h3>
+        <span class="tload">38<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:7.8947%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 3"></span><span class="seg" style="width:89.4737%;background:#f4c95d" title="CLAUDE MAIN: 34"></span><span class="seg" style="width:2.6316%;background:#5fd0a0" title="CLAUDE OUTPUTS: 1"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;3</span> <span class="chip" style="--c:#f4c95d">M&nbsp;34</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;1</span><span class="chip ghost">32 shared</span></div>
+      <p class="gloss">The largest AI-facing hub: how silicon systems absorb human capacity, the trades that absorption runs on, the tournament dynamics that prune what is not absorbed, and the planet-scale compute layer underneath.</p>
+      <ul class="subs"><li><span class="sid">S1901</span><span class="slab">The silicon absorption architecture</span><span class="scount">17</span></li><li><span class="sid">S1902</span><span class="slab">Absorption trades &amp; domestication</span><span class="scount">7</span></li><li><span class="sid">S1903</span><span class="slab">Pruning &amp; the tournament engine</span><span class="scount">12</span></li><li><span class="sid">S1904</span><span class="slab">The planetary GPU architecture</span><span class="scount">5</span></li></ul>
+    </article>
+    <article class="hub" id="T20">
+      <header>
+        <span class="tid">T20</span>
+        <h3>AI System Architecture</h3>
+        <span class="tload">34<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:11.7647%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 4"></span><span class="seg" style="width:76.4706%;background:#f4c95d" title="CLAUDE MAIN: 26"></span><span class="seg" style="width:8.8235%;background:#5fd0a0" title="CLAUDE OUTPUTS: 3"></span><span class="seg" style="width:2.9412%;background:#9b8cf0" title="CREATIVE OUTPUT: 1"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;4</span> <span class="chip" style="--c:#f4c95d">M&nbsp;26</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;3</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;1</span><span class="chip ghost">28 shared</span></div>
+      <p class="gloss">How AI systems are actually built. The CPU/GPU split the whole map is named for, the compute-algorithm-data triad, what the technology is doing under the marketing, and where capability is held back on purpose.</p>
+      <ul class="subs"><li><span class="sid">S2001</span><span class="slab">CPU/GPU division &amp; the apex processor</span><span class="scount">9</span></li><li><span class="sid">S2002</span><span class="slab">The compute-algorithm-data triad</span><span class="scount">11</span></li><li><span class="sid">S2003</span><span class="slab">What AI actually is and why it improves</span><span class="scount">12</span></li><li><span class="sid">S2004</span><span class="slab">Model constraint &amp; suppressed capability</span><span class="scount">4</span></li></ul>
+    </article>
+    <article class="hub" id="T21">
+      <header>
+        <span class="tid">T21</span>
+        <h3>The AI Transition</h3>
+        <span class="tload">35<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:100.0000%;background:#f4c95d" title="CLAUDE MAIN: 35"></span></div>
+      <div class="chips"><span class="chip" style="--c:#f4c95d">M&nbsp;35</span><span class="chip ghost">28 shared</span></div>
+      <p class="gloss">The live transition. Data flooding through the interface layer, the 2020-2026 screen-dependency sequence, embedded AI layers people do not see, and the tightening coupling between human and machine.</p>
+      <ul class="subs"><li><span class="sid">S2101</span><span class="slab">The transduction layer &amp; data flooding</span><span class="scount">10</span></li><li><span class="sid">S2102</span><span class="slab">Screen dependency &amp; the 2020-2026 sequence</span><span class="scount">7</span></li><li><span class="sid">S2103</span><span class="slab">Hidden &amp; embedded AGI layers</span><span class="scount">9</span></li><li><span class="sid">S2104</span><span class="slab">Human-AI coupling &amp; entanglement</span><span class="scount">10</span></li></ul>
+    </article>
+    <article class="hub" id="T22">
+      <header>
+        <span class="tid">T22</span>
+        <h3>Attention &amp; Dopamine</h3>
+        <span class="tload">19<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:15.7895%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 3"></span><span class="seg" style="width:68.4211%;background:#f4c95d" title="CLAUDE MAIN: 13"></span><span class="seg" style="width:15.7895%;background:#5fd0a0" title="CLAUDE OUTPUTS: 3"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;3</span> <span class="chip" style="--c:#f4c95d">M&nbsp;13</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;3</span><span class="chip ghost">14 shared</span></div>
+      <p class="gloss">The attention economy at the mechanism level: dopamine loops, attention as a control token, populations made predictable, and decisions hijacked by whatever is felt in the moment.</p>
+      <ul class="subs"><li><span class="sid">S2201</span><span class="slab">The dopamine economy</span><span class="scount">7</span></li><li><span class="sid">S2202</span><span class="slab">Attention as control token &amp; computable populations</span><span class="scount">8</span></li><li><span class="sid">S2203</span><span class="slab">Emotional hijack &amp; immediate-state thinking</span><span class="scount">7</span></li></ul>
+    </article>
+    <article class="hub" id="T23">
+      <header>
+        <span class="tid">T23</span>
+        <h3>Cognition &amp; the Individual Mind</h3>
+        <span class="tload">33<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:3.0303%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 1"></span><span class="seg" style="width:81.8182%;background:#f4c95d" title="CLAUDE MAIN: 27"></span><span class="seg" style="width:12.1212%;background:#5fd0a0" title="CLAUDE OUTPUTS: 4"></span><span class="seg" style="width:3.0303%;background:#9b8cf0" title="CREATIVE OUTPUT: 1"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;1</span> <span class="chip" style="--c:#f4c95d">M&nbsp;27</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;4</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;1</span><span class="chip ghost">27 shared</span></div>
+      <p class="gloss">The individual mind as a processing system — pipeline and throughput, memory and internal representation, the self-image the system renders of itself, and consciousness treated as a duty cycle.</p>
+      <ul class="subs"><li><span class="sid">S2301</span><span class="slab">The cognitive pipeline &amp; processing efficiency</span><span class="scount">12</span></li><li><span class="sid">S2302</span><span class="slab">Memory, injection &amp; internal representation</span><span class="scount">4</span></li><li><span class="sid">S2303</span><span class="slab">Ego, identity &amp; the self-render</span><span class="scount">13</span></li><li><span class="sid">S2304</span><span class="slab">Consciousness &amp; duty cycles</span><span class="scount">5</span></li></ul>
+    </article>
+    <article class="hub" id="T24">
+      <header>
+        <span class="tid">T24</span>
+        <h3>The Sovereign Node</h3>
+        <span class="tload">33<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:9.0909%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 3"></span><span class="seg" style="width:57.5758%;background:#f4c95d" title="CLAUDE MAIN: 19"></span><span class="seg" style="width:27.2727%;background:#5fd0a0" title="CLAUDE OUTPUTS: 9"></span><span class="seg" style="width:6.0606%;background:#9b8cf0" title="CREATIVE OUTPUT: 2"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;3</span> <span class="chip" style="--c:#f4c95d">M&nbsp;19</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;9</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;2</span><span class="chip ghost">28 shared</span></div>
+      <p class="gloss">The practical counterpart to the rest of the map: how a single node stays independent. Positioning, containing your own data, deliberate difficulty as rewiring, and concrete playbooks.</p>
+      <ul class="subs"><li><span class="sid">S2401</span><span class="slab">Sovereign operations &amp; positioning</span><span class="scount">10</span></li><li><span class="sid">S2402</span><span class="slab">Personal firewalls &amp; data containment</span><span class="scount">4</span></li><li><span class="sid">S2403</span><span class="slab">Discipline, pain &amp; rewiring</span><span class="scount">7</span></li><li><span class="sid">S2404</span><span class="slab">Operating playbooks</span><span class="scount">14</span></li></ul>
+    </article>
+    <article class="hub" id="T25">
+      <header>
+        <span class="tid">T25</span>
+        <h3>Civilization</h3>
+        <span class="tload">24<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:12.5000%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 3"></span><span class="seg" style="width:37.5000%;background:#f4c95d" title="CLAUDE MAIN: 9"></span><span class="seg" style="width:33.3333%;background:#5fd0a0" title="CLAUDE OUTPUTS: 8"></span><span class="seg" style="width:16.6667%;background:#9b8cf0" title="CREATIVE OUTPUT: 4"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;3</span> <span class="chip" style="--c:#f4c95d">M&nbsp;9</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;8</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;4</span><span class="chip ghost">21 shared</span></div>
+      <p class="gloss">Civilization read as one machine — as a neural architecture, as a complexity problem that outruns the people inside it, and as layers of institutions applying graduated control.</p>
+      <ul class="subs"><li><span class="sid">S2501</span><span class="slab">What civilization is and how it works</span><span class="scount">7</span></li><li><span class="sid">S2502</span><span class="slab">Civilization as neural architecture</span><span class="scount">6</span></li><li><span class="sid">S2503</span><span class="slab">Complexity &amp; legibility</span><span class="scount">7</span></li><li><span class="sid">S2504</span><span class="slab">Institutions &amp; graduated control layers</span><span class="scount">4</span></li></ul>
+    </article>
+    <article class="hub" id="T26">
+      <header>
+        <span class="tid">T26</span>
+        <h3>Actors, Events &amp; Geopolitics</h3>
+        <span class="tload">16<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:81.2500%;background:#f4c95d" title="CLAUDE MAIN: 13"></span><span class="seg" style="width:12.5000%;background:#5fd0a0" title="CLAUDE OUTPUTS: 2"></span><span class="seg" style="width:6.2500%;background:#9b8cf0" title="CREATIVE OUTPUT: 1"></span></div>
+      <div class="chips"><span class="chip" style="--c:#f4c95d">M&nbsp;13</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;2</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;1</span><span class="chip ghost">16 shared</span></div>
+      <p class="gloss">Specific actors and events: named nodes and how they were pruned, the AI labs and firms, and geopolitical conflict and population movement.</p>
+      <ul class="subs"><li><span class="sid">S2601</span><span class="slab">Named nodes &amp; their pruning</span><span class="scount">5</span></li><li><span class="sid">S2602</span><span class="slab">Labs, firms &amp; the AI industry</span><span class="scount">8</span></li><li><span class="sid">S2603</span><span class="slab">Geopolitics, conflict &amp; population flows</span><span class="scount">3</span></li></ul>
+    </article>
+    <article class="hub" id="T27">
+      <header>
+        <span class="tid">T27</span>
+        <h3>Media &amp; Information War</h3>
+        <span class="tload">16<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:12.5000%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 2"></span><span class="seg" style="width:87.5000%;background:#f4c95d" title="CLAUDE MAIN: 14"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;2</span> <span class="chip" style="--c:#f4c95d">M&nbsp;14</span><span class="chip ghost">14 shared</span></div>
+      <p class="gloss">Information as a weapon — flooding a channel so nothing gets through, media distributing disorder, trust severed on purpose, and leaks released under control.</p>
+      <ul class="subs"><li><span class="sid">S2702</span><span class="slab">Flooding, DDoS &amp; spectral containment</span><span class="scount">6</span></li><li><span class="sid">S2703</span><span class="slab">Media as entropy distributor, narrative control &amp; trust severance</span><span class="scount">7</span></li><li><span class="sid">S2704</span><span class="slab">Controlled leakage &amp; disclosure</span><span class="scount">4</span></li></ul>
+    </article>
+    <article class="hub" id="T28">
+      <header>
+        <span class="tid">T28</span>
+        <h3>Economy &amp; Markets</h3>
+        <span class="tload">22<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:4.5455%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 1"></span><span class="seg" style="width:40.9091%;background:#f4c95d" title="CLAUDE MAIN: 9"></span><span class="seg" style="width:36.3636%;background:#5fd0a0" title="CLAUDE OUTPUTS: 8"></span><span class="seg" style="width:18.1818%;background:#9b8cf0" title="CREATIVE OUTPUT: 4"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;1</span> <span class="chip" style="--c:#f4c95d">M&nbsp;9</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;8</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;4</span><span class="chip ghost">20 shared</span></div>
+      <p class="gloss">Markets as a selection mechanism, how wealth accumulates, and the firm as a stack of gates people pass through.</p>
+      <ul class="subs"><li><span class="sid">S2801</span><span class="slab">Markets, economic selection &amp; scarcity</span><span class="scount">7</span></li><li><span class="sid">S2803</span><span class="slab">Wealth, assets &amp; accumulation</span><span class="scount">4</span></li><li><span class="sid">S2804</span><span class="slab">Firms, work &amp; the corporate stack</span><span class="scount">12</span></li></ul>
+    </article>
+    <article class="hub" id="T29">
+      <header>
+        <span class="tid">T29</span>
+        <h3>Biology &amp; Living Systems</h3>
+        <span class="tload">27<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:7.4074%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 2"></span><span class="seg" style="width:40.7407%;background:#f4c95d" title="CLAUDE MAIN: 11"></span><span class="seg" style="width:37.0370%;background:#5fd0a0" title="CLAUDE OUTPUTS: 10"></span><span class="seg" style="width:14.8148%;background:#9b8cf0" title="CREATIVE OUTPUT: 4"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;2</span> <span class="chip" style="--c:#f4c95d">M&nbsp;11</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;10</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;4</span><span class="chip ghost">24 shared</span></div>
+      <p class="gloss">Living systems as computation — what makes something alive in systems terms, the body as an energy system, and the line between adapting and giving up.</p>
+      <ul class="subs"><li><span class="sid">S2901</span><span class="slab">Living systems &amp; biological computation</span><span class="scount">8</span></li><li><span class="sid">S2903</span><span class="slab">Body, health &amp; energy systems</span><span class="scount">7</span></li><li><span class="sid">S2904</span><span class="slab">Evolution, adaptation &amp; surrender</span><span class="scount">13</span></li></ul>
+    </article>
+    <article class="hub" id="T30">
+      <header>
+        <span class="tid">T30</span>
+        <h3>Games &amp; Arenas</h3>
+        <span class="tload">19<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:10.5263%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 2"></span><span class="seg" style="width:63.1579%;background:#f4c95d" title="CLAUDE MAIN: 12"></span><span class="seg" style="width:5.2632%;background:#5fd0a0" title="CLAUDE OUTPUTS: 1"></span><span class="seg" style="width:21.0526%;background:#9b8cf0" title="CREATIVE OUTPUT: 4"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;2</span> <span class="chip" style="--c:#f4c95d">M&nbsp;12</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;1</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;4</span><span class="chip ghost">17 shared</span></div>
+      <p class="gloss">Bounded arenas with explicit rules, which is why they make such clean models. Chess and positional play, tournament structures including fictional ones, and sport as measured performance.</p>
+      <ul class="subs"><li><span class="sid">S3001</span><span class="slab">Chess &amp; positional domination</span><span class="scount">7</span></li><li><span class="sid">S3002</span><span class="slab">Tournaments &amp; arenas, including fictional</span><span class="scount">8</span></li><li><span class="sid">S3003</span><span class="slab">Sport, skill &amp; performance</span><span class="scount">4</span></li></ul>
+    </article>
+    <article class="hub" id="T31">
+      <header>
+        <span class="tid">T31</span>
+        <h3>Narrative Readings</h3>
+        <span class="tload">14<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:7.1429%;background:#f4c95d" title="CLAUDE MAIN: 1"></span><span class="seg" style="width:14.2857%;background:#5fd0a0" title="CLAUDE OUTPUTS: 2"></span><span class="seg" style="width:78.5714%;background:#9b8cf0" title="CREATIVE OUTPUT: 11"></span></div>
+      <div class="chips"><span class="chip" style="--c:#f4c95d">M&nbsp;1</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;2</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;11</span><span class="chip ghost">7 shared</span></div>
+      <p class="gloss">Film, television and story read as systems: what a character is a state of, and what story structure does mechanically.</p>
+      <ul class="subs"><li><span class="sid">S3101</span><span class="slab">Film &amp; TV systems readings</span><span class="scount">13</span></li><li><span class="sid">S3102</span><span class="slab">Character as system state</span><span class="scount">5</span></li><li><span class="sid">S3103</span><span class="slab">Story structure as mechanism</span><span class="scount">3</span></li></ul>
+    </article>
+    <article class="hub" id="T32">
+      <header>
+        <span class="tid">T32</span>
+        <h3>Meaning, Religion &amp; Metaphysics</h3>
+        <span class="tload">25<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:36.0000%;background:#f4c95d" title="CLAUDE MAIN: 9"></span><span class="seg" style="width:32.0000%;background:#5fd0a0" title="CLAUDE OUTPUTS: 8"></span><span class="seg" style="width:32.0000%;background:#9b8cf0" title="CREATIVE OUTPUT: 8"></span></div>
+      <div class="chips"><span class="chip" style="--c:#f4c95d">M&nbsp;9</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;8</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;8</span><span class="chip ghost">17 shared</span></div>
+      <p class="gloss">The largest questions handled in the same language as the rest: religion as compressed engineering description, meaning and morality, beauty, and whether choice is real.</p>
+      <ul class="subs"><li><span class="sid">S3201</span><span class="slab">God, holiness &amp; religion as engineering language</span><span class="scount">9</span></li><li><span class="sid">S3202</span><span class="slab">Meaning, purpose &amp; morality</span><span class="scount">8</span></li><li><span class="sid">S3204</span><span class="slab">Beauty, art &amp; aesthetics</span><span class="scount">3</span></li><li><span class="sid">S3205</span><span class="slab">Free will, determinism &amp; simulation</span><span class="scount">7</span></li></ul>
+    </article>
+    <article class="hub" id="T33">
+      <header>
+        <span class="tid">T33</span>
+        <h3>Method &amp; Theory-building</h3>
+        <span class="tload">27<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:11.1111%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 3"></span><span class="seg" style="width:62.9630%;background:#f4c95d" title="CLAUDE MAIN: 17"></span><span class="seg" style="width:11.1111%;background:#5fd0a0" title="CLAUDE OUTPUTS: 3"></span><span class="seg" style="width:14.8148%;background:#9b8cf0" title="CREATIVE OUTPUT: 4"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;3</span> <span class="chip" style="--c:#f4c95d">M&nbsp;17</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;3</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;4</span><span class="chip ghost">23 shared</span></div>
+      <p class="gloss">The method the corpus uses on itself. How theory is constructed, how findings from different domains are fused, how the body of work is organized, and how it gets drawn.</p>
+      <ul class="subs"><li><span class="sid">S3301</span><span class="slab">Theory-construction methodology</span><span class="scount">8</span></li><li><span class="sid">S3302</span><span class="slab">Synthesis &amp; cross-domain integration</span><span class="scount">8</span></li><li><span class="sid">S3303</span><span class="slab">Knowledge organization &amp; corpus structure</span><span class="scount">6</span></li><li><span class="sid">S3304</span><span class="slab">Diagramming &amp; visualization</span><span class="scount">8</span></li></ul>
+    </article>
+    <article class="hub" id="T34">
+      <header>
+        <span class="tid">T34</span>
+        <h3>Argument &amp; Persuasion</h3>
+        <span class="tload">9<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:11.1111%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 1"></span><span class="seg" style="width:66.6667%;background:#f4c95d" title="CLAUDE MAIN: 6"></span><span class="seg" style="width:22.2222%;background:#5fd0a0" title="CLAUDE OUTPUTS: 2"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;1</span> <span class="chip" style="--c:#f4c95d">M&nbsp;6</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;2</span><span class="chip ghost">9 shared</span></div>
+      <p class="gloss">Argument treated structurally rather than rhetorically: what makes a position hard to attack, how probing works in conversation, and how to weave a claim from several domains at once.</p>
+      <ul class="subs"><li><span class="sid">S3401</span><span class="slab">Structural superiority in argument</span><span class="scount">4</span></li><li><span class="sid">S3402</span><span class="slab">Probing &amp; implicit verbal mechanics</span><span class="scount">4</span></li><li><span class="sid">S3403</span><span class="slab">Indestructible arguments &amp; multi-domain weaving</span><span class="scount">1</span></li></ul>
+    </article>
+    <article class="hub" id="T35">
+      <header>
+        <span class="tid">T35</span>
+        <h3>Mundane System Readings</h3>
+        <span class="tload">25<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:4.0000%;background:#5fd0a0" title="CLAUDE OUTPUTS: 1"></span><span class="seg" style="width:96.0000%;background:#9b8cf0" title="CREATIVE OUTPUT: 24"></span></div>
+      <div class="chips"><span class="chip" style="--c:#5fd0a0">O&nbsp;1</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;24</span><span class="chip ghost">13 shared</span></div>
+      <p class="gloss">Ordinary things taken apart as systems — objects, food and drink loops, plus the jokes and informal logs. The test bed: if the framework holds on a Pringles can, it is a framework.</p>
+      <ul class="subs"><li><span class="sid">S3501</span><span class="slab">Everyday objects as systems</span><span class="scount">8</span></li><li><span class="sid">S3502</span><span class="slab">Food, drink &amp; consumption loops</span><span class="scount">3</span></li><li><span class="sid">S3503</span><span class="slab">Jokes, logs &amp; informal notes</span><span class="scount">16</span></li></ul>
+    </article>
+    <article class="hub" id="T36">
+      <header>
+        <span class="tid">T36</span>
+        <h3>Reference &amp; Master Syntheses</h3>
+        <span class="tload">27<small>records</small></span>
+      </header>
+      <div class="bar"><span class="seg" style="width:7.4074%;background:#3aa0c9" title="CLAUDE ARCHITECTURE: 2"></span><span class="seg" style="width:70.3704%;background:#5fd0a0" title="CLAUDE OUTPUTS: 19"></span><span class="seg" style="width:22.2222%;background:#9b8cf0" title="CREATIVE OUTPUT: 6"></span></div>
+      <div class="chips"><span class="chip" style="--c:#3aa0c9">A&nbsp;2</span> <span class="chip" style="--c:#5fd0a0">O&nbsp;19</span> <span class="chip" style="--c:#9b8cf0">C&nbsp;6</span><span class="chip ghost">26 shared</span></div>
+      <p class="gloss">The top of the stack. Unified reference architectures, directed syntheses that answer one question from many sources, and the indexes and catalogs — including this routing map itself.</p>
+      <ul class="subs"><li><span class="sid">S3601</span><span class="slab">Unified &amp; universal architecture references</span><span class="scount">3</span></li><li><span class="sid">S3602</span><span class="slab">Directed syntheses &amp; answers</span><span class="scount">23</span></li><li><span class="sid">S3603</span><span class="slab">Indexes &amp; catalogs</span><span class="scount">1</span></li></ul>
+    </article></div>
+</section>
+
+<section id="bridges" class="wrap">
+  <h2>Cross-routing</h2>
+  <p class="lead">424 of the 508 records (83%) are filed under more than
+     one sub-hub. Each of those records forms a bridge, and 223 distinct
+     pairs of hubs are linked this way.</p>
+  <p class="sec-note">These bridges are the reason the index cannot be
+     flattened into folders. When two subjects keep sharing records, that is
+     evidence the same mechanism is showing up in both places &mdash; which is
+     the finding, not a filing error. The heaviest pairs:</p>
+  <table>
+    <thead><tr><th>Hub</th><th>Hub</th><th>Shared records</th></tr></thead>
+    <tbody><tr><td><a href="#T02">T02 &middot; Density</a></td><td><a href="#T18">T18 &middot; Networks &amp; the Social Field</a></td><td class="r">8</td></tr><tr><td><a href="#T01">T01 &middot; The Two-stroke Loop</a></td><td><a href="#T13">T13 &middot; Iteration &amp; Error</a></td><td class="r">6</td></tr><tr><td><a href="#T19">T19 &middot; Absorption &amp; Pruning</a></td><td><a href="#T21">T21 &middot; The AI Transition</a></td><td class="r">6</td></tr><tr><td><a href="#T19">T19 &middot; Absorption &amp; Pruning</a></td><td><a href="#T26">T26 &middot; Actors, Events &amp; Geopolitics</a></td><td class="r">6</td></tr><tr><td><a href="#T01">T01 &middot; The Two-stroke Loop</a></td><td><a href="#T33">T33 &middot; Method &amp; Theory-building</a></td><td class="r">6</td></tr><tr><td><a href="#T02">T02 &middot; Density</a></td><td><a href="#T08">T08 &middot; Prediction</a></td><td class="r">5</td></tr><tr><td><a href="#T02">T02 &middot; Density</a></td><td><a href="#T09">T09 &middot; Command &amp; Authority</a></td><td class="r">5</td></tr><tr><td><a href="#T25">T25 &middot; Civilization</a></td><td><a href="#T36">T36 &middot; Reference &amp; Master Syntheses</a></td><td class="r">5</td></tr><tr><td><a href="#T32">T32 &middot; Meaning, Religion &amp; Metaphysics</a></td><td><a href="#T36">T36 &middot; Reference &amp; Master Syntheses</a></td><td class="r">4</td></tr><tr><td><a href="#T23">T23 &middot; Cognition &amp; the Individual Mind</a></td><td><a href="#T32">T32 &middot; Meaning, Religion &amp; Metaphysics</a></td><td class="r">4</td></tr></tbody>
+  </table>
+</section>
+
+
+    <section class="fig" id="fig-tree"><div class="wrap">
+      <div class="figtext">
+        <span class="fignum">Figure 5</span>
+        <h2>The index skeleton</h2>
+        <p class="lead">The structure with the records stripped out: master index, 36 hubs, 120 sub-hubs, and the routes running between shelves.</p>
+        <p>This is the map to keep. Every record has been removed so the shape is visible on its own — one entry point at the centre, the hubs around it, the sub-hubs under those, with a count on each shelf and the shelf-to-shelf routes drawn across.</p><p>If you read one figure on this page, read this one. Everything above is this diagram with the contents put back in.</p>
+      </div>
+      <figure>
+        <img src="axis3_tree_simple_diagram.png" alt="The index skeleton" loading="lazy" data-full="axis3_tree_simple_diagram.png">
+        <figcaption>Figure 5 &middot; click to open full size</figcaption>
+      </figure>
+    </div></section>
+
+<footer><div class="wrap">
+  <p><b>Sources.</b> Every number on this page is read from the routing data
+     file &mdash; the same file the five figures render from &mdash; so the page
+     and the diagrams cannot disagree.</p>
+  <ul>
+    <li>The routing map note &mdash; the full map and reverse index</li>
+    <li>The five figure scripts &mdash; one per diagram, each rendered at
+        300&nbsp;dpi</li>
+    <li>The generated vault &mdash; what the graph view is captured from</li>
+  </ul>
+  <p style="margin-top:22px">Routing map v1 &middot; 508 records &middot;
+     941 attachments &middot; 36 hubs &middot; 120 sub-hubs</p>
+</div></footer>
+
+<div id="lb"><div class="hint">CLICK ANYWHERE OR PRESS ESC TO CLOSE &middot;
+  SCROLL TO PAN</div><img id="lbimg" alt=""></div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), im=document.getElementById('lbimg');
+  document.querySelectorAll('.fig img').forEach(function(el){
+    el.addEventListener('click',function(){
+      im.src=el.dataset.full; lb.classList.add('on');
+      document.body.style.overflow='hidden';
+    });
+  });
+  function close(){lb.classList.remove('on');im.src='';
+    document.body.style.overflow='';}
+  lb.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape') close();});
+})();
+</script>
+</body>
+</html>
